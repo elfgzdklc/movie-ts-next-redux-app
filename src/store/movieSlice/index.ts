@@ -1,34 +1,42 @@
-import {createSlice, createAsyncThunk, Slice} from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "@/services/util/axiosConfig"
 import {AxiosResponse} from "axios";
 
-interface Movie {
-    id: number;
-    movie: string;
+interface DataState {
+    data: any[];
+    status: 'idle' | 'loading' | 'failed';
+    error: string | null;
 }
 
-interface MovieState {
-    movies: Movie[];
-}
+const initialState: DataState = {
+    data: [],
+    status: 'idle',
+    error: null,
+};
 
-const initialState: MovieState = {
-    movies: [],
-}
-
-export const fetchMovies= createAsyncThunk('movies/fetchMovies', async () => {
+export const fetchData = createAsyncThunk('data/fetchData', async () => {
     const response: AxiosResponse = await api.get('/movies');
-    return response;
+    return response.data;
 })
 
-const moviesSlice: Slice<MovieState, {}, "movies"> = createSlice({
-    name: 'movies',
+const dataSlice = createSlice({
+    name: 'data',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchMovies.fulfilled, (state: any, action) => {
-            state.movies = action.payload
-        })
+        builder
+            .addCase(fetchData.pending, (state: any) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchData.fulfilled, (state: any, action) => {
+                state.status = 'idle';
+                state.data = action.payload;
+            })
+            .addCase(fetchData.rejected, (state: any, action) => {
+                state.status = 'failed';
+                state.error = action.error.message || null;
+            });
     }
 })
 
-export default moviesSlice.reducer;
+export default dataSlice.reducer;

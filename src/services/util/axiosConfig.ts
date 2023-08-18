@@ -5,8 +5,10 @@ const BASE_URL = 'https://dummyapi.online/api';
 const instanceAxios: AxiosInstance = axios.create({
     baseURL: BASE_URL,
     headers: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
     },
+
 })
 
 instanceAxios.interceptors.request.use(
