@@ -1,12 +1,12 @@
 import React, {Dispatch, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
-import {fetchData} from "../store/movieSlice"
+import {fetchData} from "../services/api/dataThunk"
 
-const MovieList: React.FC = () => {
+const DataList: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const movies = useSelector((state: any) => state.data)
-    const status = useSelector((state: any) => state.status);
-    const error = useSelector((state: any) => state.error);
+    const data = useSelector((state: any) => state.data.data.products)
+    const status = useSelector((state: any) => state.data.status);
+    const error = useSelector((state: any) => state.data.error);
 
     useEffect(() => {
         dispatch(fetchData())
@@ -19,16 +19,16 @@ const MovieList: React.FC = () => {
     if (status === 'failed') {
         return <div>Error: {error}</div>;
     }
-
+    console.log(data)
     return (
         <>
-            <h6>Movie List</h6>
+            <h6>Data List</h6>
             <ul>
-                {movies && movies.map((i: any, index: any) => (
-                    <li key={index}>{i.movie}</li>
+                {data && data.map((i: any, index: any) => (
+                    <li key={index}>{i.title}</li>
                 ))}
             </ul>
         </>
     )
 }
-export default MovieList;
+export default DataList;

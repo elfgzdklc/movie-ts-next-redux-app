@@ -1,6 +1,5 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import api from "@/services/util/axiosConfig"
-import {AxiosResponse} from "axios";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchData} from "@/services/api/dataThunk";
 
 interface DataState {
     data: any[];
@@ -13,11 +12,6 @@ const initialState: DataState = {
     status: 'idle',
     error: null,
 };
-
-export const fetchData = createAsyncThunk('data/fetchData', async () => {
-    const response: AxiosResponse = await api.get('/movies');
-    return response.data;
-})
 
 const dataSlice = createSlice({
     name: 'data',

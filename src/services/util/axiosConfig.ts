@@ -1,18 +1,19 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 
-const BASE_URL = 'https://dummyapi.online/api';
+const BASE_URL = 'https://dummyjson.com';
 
 const instanceAxios: AxiosInstance = axios.create({
     baseURL: BASE_URL,
-    headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-    },
-
+    headers: {'Content-Type': 'application/json'},
 })
 
 instanceAxios.interceptors.request.use(
     (config) => {
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZz9zaXplPTUweDUwJnNldD1zZXQxIiwiaWF0IjoxNjM1NzczOTYyLCJleHAiOjE2MzU3Nzc1NjJ9.n9PQX8w8ocKo0dMCw3g8bKhjB8Wo7f7IONFBDqfxKhs"
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        console.log(config)
         return config;
     },
     (error) => {
