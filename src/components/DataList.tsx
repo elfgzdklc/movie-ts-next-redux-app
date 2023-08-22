@@ -1,6 +1,6 @@
 import React, {Dispatch, useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
-import {fetchData} from "../services/api/dataThunk"
+import {fetchData} from "@/services/api/dataThunk"
 
 const DataList: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
