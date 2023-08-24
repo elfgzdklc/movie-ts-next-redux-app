@@ -1,23 +1,23 @@
-import React, {Dispatch, useEffect} from "react"
-import {useDispatch, useSelector} from "react-redux";
-import {fetchData} from "@/services/api/dataThunk"
+import React, { Dispatch, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchData } from '@/services/api/dataThunk'
 
 const DataList: React.FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
     const data = useSelector((state: any) => state.data.data.products)
-    const status = useSelector((state: any) => state.data.status);
-    const error = useSelector((state: any) => state.data.error);
+    const status = useSelector((state: any) => state.data.status)
+    const error = useSelector((state: any) => state.data.error)
 
     useEffect(() => {
         dispatch(fetchData())
     }, [dispatch])
 
     if (status === 'loading') {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>
     }
 
     if (status === 'failed') {
-        return <div>Error: {error}</div>;
+        return <div>Error: {error}</div>
     }
     console.log(data)
     return (
@@ -31,4 +31,4 @@ const DataList: React.FC = () => {
         </>
     )
 }
-export default DataList;
+export default DataList

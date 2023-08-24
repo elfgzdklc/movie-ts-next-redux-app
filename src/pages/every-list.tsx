@@ -1,11 +1,11 @@
-import React from "react"
-import DataList from "@/components/DataList";
+import React from 'react'
+import DataList from '@/components/DataList'
 
 const EveryList: React.FC = () => {
     return (
         <>
-            <DataList/>
+            <DataList />
         </>
     )
 }
-export default EveryList;
+export default EveryList
