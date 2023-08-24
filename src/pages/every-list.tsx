@@ -4,7 +4,7 @@ import DataList from '@/components/DataList'
 const EveryList: React.FC = () => {
     return (
         <>
-            <DataList />
+                    <DataList />
         </>
     )
 }
